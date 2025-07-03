@@ -2,8 +2,12 @@ import cors from 'cors';
 import express from 'express';
 import pino from 'pino-http';
 
+import { getEnvVar } from './utils/getEnvVar.js';
+import { getAllContacts, getContactById } from './services/contacts.js';
+const PORT = getEnvVar('PORT', 3000);
 
-const PORT = process.env.PORT;
+
+
 
 export const startServer = () => { 
     const app = express();
@@ -23,6 +27,41 @@ export const startServer = () => {
         res.status(200).json({ message: 'Welcome to MongoDB test' });
     });
 
+
+
+    app.get('/contacts', async (req, res) => {
+        const contact = await getAllContacts();
+        res.json({
+            status: 200,
+            message: 'Successfully found contacts!',
+            data: contact,
+        });
+    });
+
+    app.get('/contacts/:contactId', async (req, res, next) => {
+        const { contactId } = req.params;
+        
+        try {
+          const contact = await getContactById(contactId);
+    
+          if (!contact) {
+            return res.status(404).json({
+              message: 'Contact not found',
+            });
+          }
+    
+          res.json({
+            status: 200,
+            message: `Successfully found contact with id ${contactId}!`,
+            data: contact,
+          });
+        } catch (error) {
+          next(error);
+        }
+      });
+
+
+    
     app.use('*', (req, res) => {
         res.status(404).json({
         message: 'Not found',
