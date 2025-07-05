@@ -7,7 +7,7 @@ import { Schema, model } from 'mongoose';
        required: true,
      },
      phoneNumber: {
-       type: Number,
+       type: String,
        required: true,
      },
      email : {
