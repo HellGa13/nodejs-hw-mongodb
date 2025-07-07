@@ -1,16 +1,16 @@
 import cors from 'cors';
 import express from 'express';
 import pino from 'pino-http';
+import dotenv from 'dotenv';
 
-import { getEnvVar } from './utils/getEnvVar.js';
 import contactsRouter from './routers/contacts.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
 
-const PORT = getEnvVar('PORT', 3000);
+const PORT = Number(process.env.PORT) || 3000;
 
-
+dotenv.config();
 
 export const startServer = () => { 
     const app = express();
