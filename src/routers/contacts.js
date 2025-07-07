@@ -4,7 +4,7 @@ import {
     createContactController, deleteContactController,
     getContactByIdController, getContactsController,
     patchContactController,
-} from '../controllers/students.js';
+} from '../controllers/contacts.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper';
 
 
