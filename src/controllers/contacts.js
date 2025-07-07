@@ -60,7 +60,7 @@ export const deleteContactController = async (req, res, next) => {
 };
 
 
-export const patchStudentController = async (req, res, next) => {
+export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const result = await updateContact(contactId, req.body);
 
