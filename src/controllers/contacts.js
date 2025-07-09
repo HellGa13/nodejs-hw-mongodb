@@ -7,17 +7,13 @@ import {
 
 
 
-export const getContactsController = async (req, res, next) => {
-  try {
-    const contact = await getAllContacts();
-    res.json({
-        status: 200,
-        message: 'Successfully found contacts!',
-        data: contact,
-    });
-  } catch (err) {
-    next(err);
-  } 
+export const getContactsController = async (req, res) => {
+  const contacts = await getAllContacts();
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully found contacts!',
+    data: contacts,
+  });
 };
 
 
