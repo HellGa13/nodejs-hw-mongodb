@@ -9,7 +9,7 @@ const parseIsFavourite = (isFavourite) => {
   if (isFavourite === 'false') return false;
 };
 
-export const parseContactsFilterParams = (query) => {
+export const parseFilterParams = (query) => {
   const { type, isFavourite } = query;
 
   const parsedType = parseContactType(type);
