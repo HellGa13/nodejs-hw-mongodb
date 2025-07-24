@@ -23,6 +23,10 @@ import { Schema, model } from 'mongoose';
        enum: ['work', 'home', 'personal'],
        default: ['personal'],
      },
+     userId: {  
+       type: Schema.Types.ObjectId, 
+       ref: 'users' 
+    },      
    },
    {
      timestamps: true,
