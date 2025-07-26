@@ -7,19 +7,17 @@ import { FIFTEEN_MINUTES, THIRTY_DAYS } from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
 
 //регістрація
-export const registerUser = async (payload) => {
-  const user = await UsersCollection.findOne({
-    email: payload.email
-  });
-  if (user) throw createHttpError(409, 'Email in use');
-  
-  const encryptedPassword = await bcrypt.hash(payload.password, 10);
+export async function registerUser(payload) {
+  const user = await UsersCollection.findOne({ email: payload.email });
 
-  return await UsersCollection.create({
-    ...payload,
-    password: encryptedPassword,
-  });
-};
+  if (user !== null) {
+    throw new createHttpError.Conflict('Email in use');
+  }
+
+  payload.password = await bcrypt.hash(payload.password, 10);
+
+  return UsersCollection.create(payload);
+}
 
 //логін
 export const loginUser = async (payload) => {
