@@ -1,3 +1,4 @@
+// controllers/contacts.js
 import createHttpError from 'http-errors';
 import {
   createContact,
@@ -44,7 +45,6 @@ export const getContactByIdController = async (req, res) => {
       });  
 };
 
-
 export const createContactsController = async (req, res) => {
   const contact = await createContact(req.body, req.user._id);
 
@@ -55,11 +55,9 @@ export const createContactsController = async (req, res) => {
   });
 };
 
-
 export const deleteContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await deleteContact(contactId, req.user._id);
-
 
   if (!contact) {
     next(createHttpError(404, 'Contact not found'));
@@ -68,11 +66,9 @@ export const deleteContactController = async (req, res, next) => {
   res.status(204).send();
 };
 
-
 export const patchContactController = async (req, res, next) => {
 const { contactId } = req.params;
   const result = await updateContact(contactId, req.body, req.user._id);
-
 
   if (!result) {
     next(createHttpError(404, 'Contact not found'));
@@ -85,4 +81,3 @@ const { contactId } = req.params;
     data: result.contact,
   });
 };
-
