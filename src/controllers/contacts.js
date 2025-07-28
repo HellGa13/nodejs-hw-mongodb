@@ -1,4 +1,3 @@
-// controllers/contacts.js
 import createHttpError from 'http-errors';
 import {
   createContact,

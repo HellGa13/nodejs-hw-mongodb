@@ -1,4 +1,3 @@
-// src/routers/index.js
 
 import { Router } from 'express';
 import contactsRouter from './contacts.js';
