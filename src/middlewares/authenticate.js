@@ -33,7 +33,7 @@ export async function auth(req, res, next) {
     throw new createHttpError.Unauthorized('User not found');
   }
 
-  req.user = { id: user._id, name: user.name };
+  req.user = { _id: user._id, name: user.name };
 
   next();
 }

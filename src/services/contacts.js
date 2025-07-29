@@ -8,29 +8,33 @@ export const getAllContacts = async ({
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
   filter = {},
-  userId, 
+  userId,
 }) => {
-  const limit = perPage;
-  const skip = (page - 1) * perPage;
+  const skip = page > 0 ? (page - 1) * perPage : 0;
 
-  const baseFilter = { userId };
+  console.log('getAllContacts called with userId:', userId);
 
-  if (filter.contactType) {
-    baseFilter.contactType = filter.contactType;
+  const searchFilter = { userId };
+
+  if (filter.type) {
+    searchFilter.contactType = filter.type;
+  }
+  if (filter.isFavourite) {
+    searchFilter.isFavourite = filter.isFavourite;
   }
 
-  if (typeof filter.isFavourite === 'boolean') {
-    baseFilter.isFavourite = filter.isFavourite;
-  }
+  console.log('Search filter:', searchFilter);
 
-  const contactsCount = await ContactsCollection.countDocuments(baseFilter);
+  const [contactsCount, contacts] = await Promise.all([
+    ContactsCollection.countDocuments(searchFilter),
+    ContactsCollection.find(searchFilter)
+      .skip(skip)
+      .limit(perPage)
+      .sort({ [sortBy]: sortOrder }),
+  ]);
 
-  const contacts = await ContactsCollection
-    .find(baseFilter)
-    .skip(skip)
-    .limit(limit)
-    .sort({ [sortBy]: sortOrder })
-    .exec();
+  console.log('Found contacts count:', contactsCount);
+  console.log('First contact (if any):', contacts[0]);
 
   const paginationData = calculatePaginationData(contactsCount, perPage, page);
 
@@ -41,18 +45,15 @@ export const getAllContacts = async ({
 };
 
 export const getContactById = async (contactId, userId) => {
-  const contact = await ContactsCollection.findOne({ 
-    _id: contactId, 
-    userId 
+  const contact = await ContactsCollection.findOne({
+    _id: contactId,
+    userId
   });
   return contact;
 };
 
-export const createContact = async (payload, userId) => {
-  const contact = await ContactsCollection.create({
-    ...payload,
-    userId,
-  });
+export const createContact = async (payload) => {
+  const contact = await ContactsCollection.create(payload);
   return contact;
 };
 
