@@ -27,7 +27,10 @@ import { Schema, model } from 'mongoose';
        type: Schema.Types.ObjectId, 
        ref: 'users',
        required: true
-    },      
+     },
+     photo: {
+       type: String
+     }
    },
    {
      timestamps: true,
