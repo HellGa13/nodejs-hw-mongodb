@@ -9,8 +9,7 @@ import router from './routers/index.js';
 import { UPLOAD_DIR } from './constants/index.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
-
-
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 const PORT = Number(process.env.PORT) || 3000;
 dotenv.config();
@@ -32,9 +31,11 @@ export const startServer = () => {
         res.status(200).json({ message: 'Welcome to MongoDB test' });
     });
 
+    app.use('/api-docs', swaggerDocs());
+    
     app.use(router);
     app.use('/uploads', express.static(UPLOAD_DIR));
-    
+  
     app.use('*', notFoundHandler);
     app.use(errorHandler);
 
@@ -42,4 +43,3 @@ export const startServer = () => {
         console.log(`Server is running on port ${PORT}`);
     });
 }
-

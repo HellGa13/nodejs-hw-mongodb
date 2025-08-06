@@ -1,0 +1,24 @@
+tags:
+  - Auth
+summary: Logout user
+operationId: logoutUser
+description: 'Logs out the user by clearing the session'
+security: []
+parameters:
+  - in: cookie
+    name: sessionId
+    schema:
+      type: string
+    required: true
+    description: Session ID cookie
+responses:
+  '204':
+    description: Successfully logged out user
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '400':
+    $ref: '../../../components/responses/400.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'
+  '500':
+    $ref: '../../../components/responses/500.yaml'
