@@ -14,7 +14,7 @@
       "url": "http://localhost:3000"
     },
     {
-      "url": "https://nodejs-hw-mongodb-contacts-7895.onrender.com"
+      "url": "https://contacts-app-g0mr.onrender.com"
     }
   ],
   "tags": [
@@ -499,48 +499,6 @@
               "type": "string",
               "enum": ["asc", "desc"],
               "example": "asc"
-            }
-          },
-          {
-            "in": "query",
-            "name": "name",
-            "schema": {
-              "type": "string",
-              "example": "John Doe"
-            }
-          },
-          {
-            "in": "query",
-            "name": "phoneNumber",
-            "schema": {
-              "type": "string",
-              "example": "+1234567890"
-            }
-          },
-          {
-            "in": "query",
-            "name": "email",
-            "schema": {
-              "type": "string",
-              "format": "email",
-              "example": "contact@example.com"
-            }
-          },
-          {
-            "in": "query",
-            "name": "contactType",
-            "schema": {
-              "type": "string",
-              "enum": ["work", "home", "personal"],
-              "example": "personal"
-            }
-          },
-          {
-            "in": "query",
-            "name": "isFavorite",
-            "schema": {
-              "type": "boolean",
-              "example": false
             }
           }
         ],
@@ -1184,4 +1142,3 @@
     }
   }
 }
-
